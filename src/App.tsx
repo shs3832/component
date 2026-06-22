@@ -4,8 +4,30 @@ import Card from "./components/common/Card";
 import AdminLayout from "./components/layout/AdminLayout";
 import DashboardPanel from "./components/dashboard/DashboardPanel";
 import InquiryTable from "./components/table/InquiryTable";
+import { inquiries } from "./data/inquiries";
+import InquiryFilters from "./components/table/InquiryFilters";
+import { useState } from "react";
 
 function App() {
+  const [searchText, setSearchText] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const onReset = () => {
+    setSearchText("");
+    setStatusFilter("all");
+    setCategoryFilter("all");
+  };
+  const normalizedSearchText = searchText.trim().toLowerCase();
+  const filteredInquiries = inquiries.filter((inquiry) => {
+    const matchesSearch =
+      inquiry.title.toLowerCase().includes(normalizedSearchText) ||
+      inquiry.customer.toLowerCase().includes(normalizedSearchText);
+
+    const matchesStatus = statusFilter === "all" || inquiry.status === statusFilter;
+    const matchesCategory = categoryFilter === "all" || inquiry.category === categoryFilter;
+
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
   return (
     <AdminLayout>
       <div className="mx-auto max-w-5xl space-y-5">
@@ -43,7 +65,16 @@ function App() {
             <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">최근 문의</h2>
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">고객 문의 상태와 등록일을 확인합니다.</p>
           </div>
-          <InquiryTable />
+          <InquiryFilters
+            searchText={searchText}
+            statusFilter={statusFilter}
+            categoryFilter={categoryFilter}
+            setSearchText={setSearchText}
+            setStatusFilter={setStatusFilter}
+            setCategoryFilter={setCategoryFilter}
+            onReset={onReset}
+          />
+          <InquiryTable inquiries={filteredInquiries} />
         </section>
       </div>
     </AdminLayout>

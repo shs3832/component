@@ -1,6 +1,9 @@
+import type { Inquiry } from "../../types/inquiry";
 import Badge from "../common/Badge";
-import { inquiries } from "../../data/inquiries";
-export default function InquiryTable() {
+interface InquiryTableProps {
+  inquiries: Inquiry[];
+}
+export default function InquiryTable({ inquiries }: InquiryTableProps) {
   const tableHeader = `px-4 py-3 text-left text-xs font-semibold text-zinc-500 dark:text-zinc-400`;
   const tableDivision = `whitespace-nowrap px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300`;
   return (
@@ -24,20 +27,28 @@ export default function InquiryTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
-            {inquiries.map((inquiry) => {
-              return (
-                <tr key={inquiry.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/60">
-                  <td className={tableDivision}>{inquiry.id}</td>
-                  <td className={tableDivision}>{inquiry.customer}</td>
-                  <td className={tableDivision}>{inquiry.title}</td>
-                  <td className={tableDivision}>{inquiry.category}</td>
-                  <td className={tableDivision}>
-                    <Badge status={inquiry.status} />
-                  </td>
-                  <td className={tableDivision}>{inquiry.createdAt}</td>
-                </tr>
-              );
-            })}
+            {inquiries.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                  검색 결과가 없습니다.
+                </td>
+              </tr>
+            ) : (
+              inquiries.map((inquiry) => {
+                return (
+                  <tr key={inquiry.id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/60">
+                    <td className={tableDivision}>{inquiry.id}</td>
+                    <td className={tableDivision}>{inquiry.customer}</td>
+                    <td className={tableDivision}>{inquiry.title}</td>
+                    <td className={tableDivision}>{inquiry.category}</td>
+                    <td className={tableDivision}>
+                      <Badge status={inquiry.status} />
+                    </td>
+                    <td className={tableDivision}>{inquiry.createdAt}</td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </div>
