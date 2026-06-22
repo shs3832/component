@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+  --color-success-500: #16a34a;
+  --color-warning-500: #f59e0b;
+  --color-danger-500: #dc2626;
+  --font-sans: "Pretendard", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+}
