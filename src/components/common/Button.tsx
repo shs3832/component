@@ -4,8 +4,9 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger";
   children: React.ReactNode;
   size?: "sm" | "md";
+  className?: string;
 }
-export default function Button({ variant = "primary", children, size = "sm", ...props }: IButtonProps) {
+export default function Button({ variant = "primary", children, size = "sm", className = "", ...props }: IButtonProps) {
   const sizeClass = {
     sm: "h-9 px-3",
     md: "h-10 px-4",
@@ -30,7 +31,11 @@ export default function Button({ variant = "primary", children, size = "sm", ...
     danger,
   };
   return (
-    <button type="button" className={`${variantClass[variant]} ${sizeClass[size]} ${baseClass}`} {...props}>
+    <button
+      type="button"
+      className={`${variantClass[variant]} ${sizeClass[size]} ${baseClass} ${className}`}
+      {...props}
+    >
       <span>{children}</span>
     </button>
   );

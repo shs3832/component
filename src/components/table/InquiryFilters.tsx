@@ -27,7 +27,7 @@ export default function InquiryFilters({
       <input
         type="search"
         placeholder="고객명 또는 문의 제목 검색"
-        className={`${controlClass} flex-1`}
+        className={`${controlClass} md:flex-1`}
         onChange={(e) => {
           setSearchText(e.target.value);
         }}
