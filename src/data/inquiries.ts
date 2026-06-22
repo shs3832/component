@@ -1,0 +1,51 @@
+import type { Inquiry } from "../types/inquiry";
+export const inquiries: Inquiry[] = [
+  {
+    id: 1,
+    customer: "김민준",
+    title: "결제 후 영수증이 보이지 않습니다",
+    category: "결제",
+    status: "waiting",
+    createdAt: "2026-06-20",
+  },
+  {
+    id: 2,
+    customer: "이서연",
+    title: "회원 정보 수정이 저장되지 않습니다",
+    category: "계정",
+    status: "progress",
+    createdAt: "2026-06-19",
+  },
+  {
+    id: 3,
+    customer: "박지호",
+    title: "배송 상태가 계속 준비중으로 표시됩니다",
+    category: "배송",
+    status: "done",
+    createdAt: "2026-06-18",
+  },
+  {
+    id: 4,
+    customer: "최유진",
+    title: "환불 요청 처리 일정이 궁금합니다",
+    category: "환불",
+    status: "delay",
+    createdAt: "2026-06-18",
+  },
+  {
+    id: 5,
+    customer: "정하윤",
+    title: "상품 옵션 선택 후 가격이 다르게 표시됩니다",
+    category: "상품",
+    status: "waiting",
+    createdAt: "2026-06-17",
+  },
+  {
+    id: 6,
+    customer: "오지훈",
+    title: "관리자 답변 알림을 받지 못했습니다",
+    category: "알림",
+    status: "done",
+    createdAt: "2026-06-16",
+  },
+];

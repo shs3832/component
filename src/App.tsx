@@ -3,6 +3,7 @@ import Badge from "./components/common/Badge";
 import Card from "./components/common/Card";
 import AdminLayout from "./components/layout/AdminLayout";
 import DashboardPanel from "./components/dashboard/DashboardPanel";
+import InquiryTable from "./components/table/InquiryTable";
 
 function App() {
   return (
@@ -37,6 +38,13 @@ function App() {
           </article>
         </Card>
         <DashboardPanel />
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">최근 문의</h2>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">고객 문의 상태와 등록일을 확인합니다.</p>
+          </div>
+          <InquiryTable />
+        </section>
       </div>
     </AdminLayout>
   );

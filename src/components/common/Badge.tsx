@@ -1,5 +1,4 @@
-type InquiryStatus = "waiting" | "progress" | "done" | "delay";
-
+import type { InquiryStatus } from "../../types/inquiry";
 interface BadgeProps {
   status: InquiryStatus;
 }
