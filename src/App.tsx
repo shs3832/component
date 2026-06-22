@@ -2,11 +2,12 @@ import Button from "./components/common/Button";
 import Badge from "./components/common/Badge";
 import Card from "./components/common/Card";
 import AdminLayout from "./components/layout/AdminLayout";
+import DashboardPanel from "./components/dashboard/DashboardPanel";
 
 function App() {
   return (
     <AdminLayout>
-      <div className="mx-auto max-w-3xl space-y-5">
+      <div className="mx-auto max-w-5xl space-y-5">
         <Card>
           <p className="text-sm font-medium text-brand-500 dark:text-brand-500">React + Vite + Tailwind CSS v4</p>
           <h1 className="mt-3 text-2xl font-bold">Admin UI Study Setup</h1>
@@ -35,6 +36,7 @@ function App() {
             </div>
           </article>
         </Card>
+        <DashboardPanel />
       </div>
     </AdminLayout>
   );
