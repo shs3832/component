@@ -68,11 +68,23 @@ export default function DashboardPage() {
       </Card>
       <Card>
         <article>
-          <h3 className="text-xl">Button UI</h3>
+          <h3 className="text-xl">Button UI - enabled</h3>
           <div className="flex items-center gap-4 mt-4">
             <Button variant="primary">주요버튼</Button>
             <Button variant="secondary">기본버튼</Button>
             <Button variant="danger">경고버튼</Button>
+          </div>
+          <h3 className="text-xl mt-5">Button UI - disabled</h3>
+          <div className="flex items-center gap-4 mt-4">
+            <Button variant="primary" disabled>
+              주요버튼
+            </Button>
+            <Button variant="secondary" disabled>
+              기본버튼
+            </Button>
+            <Button variant="danger" disabled>
+              경고버튼
+            </Button>
           </div>
         </article>
       </Card>

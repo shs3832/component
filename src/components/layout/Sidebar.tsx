@@ -7,7 +7,7 @@ export default function LayoutSideBar() {
     dark:border-zinc-800 dark:bg-zinc-900
     lg:block
   `;
-
+  const activeMenu = "Dashboard";
   return (
     <aside className={`${sideBase}`}>
       <h2 className="font-bold mb-2 text-xl text-zinc-700 dark:text-zinc-300">MENU</h2>
@@ -16,11 +16,15 @@ export default function LayoutSideBar() {
           return (
             <li key={item}>
               <button
+                data-state={item === activeMenu ? "active" : "inactive"}
+                aria-current={item === activeMenu ? "page" : undefined}
                 type="button"
-                className="cursor-pointer w-full text-left rounded-lg px-3 py-2 text-sm 
-                text-zinc-700 hover:text-zinc-900
-                dark:text-zinc-300 dark:hover:text-zinc-100
-                hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className={`cursor-pointer w-full text-left rounded-lg px-3 py-2 text-sm transition-colors duration-150 ease-out
+                text-zinc-700 
+                data-[state=active]:bg-brand-50 data-[state=active]:text-brand-600 data-[state=inactive]:hover:bg-zinc-100 data-[state=inactive]:hover:text-zinc-900
+                dark:text-zinc-300 
+                dark:data-[state=active]:bg-brand-500/10 dark:data-[state=active]:text-brand-400 
+                dark:data-[state=inactive]:hover:bg-zinc-800 dark:data-[state=inactive]:hover:text-zinc-100`}
               >
                 {item}
               </button>
