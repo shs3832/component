@@ -14,6 +14,9 @@ React + Vite + TypeScript + Tailwind CSS v4로 운영형 관리자 UI를 직접 
 - Dashboard stat card, 문의 필터, 데스크톱 테이블, 모바일 카드 리스트 구현
 - 다크모드 상태 저장과 loading/error/empty 상태 분기 구현
 - `App.tsx`에서 `DashboardPage`를 분리해 page 단위 구조 정리
+- transition, focus-visible, disabled, group-hover, data-state 등 실무형 Tailwind 상태 패턴 적용
+- `clsx`, `tailwind-merge` 기반 `cn` 유틸 추가
+- shadcn/ui Dialog를 추가해 Radix 기반 컴포넌트 구조 확인
 
 ## 실행 방법
 
@@ -41,6 +44,11 @@ npm run dev
 10. loading/error/empty 상태 표현하기
 11. page 단위 컴포넌트로 화면 분리하기
 12. README 회고 정리하기
+13. transition, focus-visible, disabled 상태 다듬기
+14. group-hover, data-state, aria-current 패턴 확인하기
+15. truncate, line-clamp, min-w-0로 텍스트 넘침 처리하기
+16. arbitrary value/variant, @apply 사용 판단 정리하기
+17. `cn`, cva, shadcn/Radix 실무 패턴 맛보기
 
 자세한 단계별 계획은 [docs/STUDY_PLAN.md](./docs/STUDY_PLAN.md)를 봅니다.
 
@@ -72,8 +80,13 @@ src/
     dashboard/   DashboardPanel, StatCard
     table/       InquiryFilters, InquiryTable, InquiryMobileList
   data/          inquiries mock data
+  lib/           shadcn utility
   pages/         DashboardPage
   types/         inquiry type
+  utils/         cn utility study
+docs/
+  TAILWIND_APPLY_EXAMPLES.md
+  CVA_BUTTON_EXAMPLE.md
 ```
 
 `App.tsx`는 전체 레이아웃을 적용하는 역할만 담당하고, 실제 화면 구성과 상태 처리는 `DashboardPage`에서 담당합니다.
@@ -94,6 +107,23 @@ src/
 - Tailwind의 `dark:` 스타일은 `html`에 `dark` class가 붙을 때 동작하므로, 테마 상태와 DOM class를 동기화해야 합니다.
 - 운영 UI에서는 데이터가 있는 상태뿐 아니라 loading, error, empty 상태를 분리해서 사용자에게 다른 피드백을 보여줘야 합니다.
 - `App.tsx`가 비대해지면 page 단위 컴포넌트로 화면 조립 코드를 분리해 이후 라우터 확장에 대비할 수 있습니다.
+- 버튼은 `hover`뿐 아니라 `active`, `focus-visible`, `disabled` 상태까지 함께 고려해야 실제 사용성이 좋아집니다.
+- `enabled:hover`, `enabled:active`처럼 활성 상태에서만 동작해야 하는 modifier를 분리하면 disabled 상태와 interaction이 섞이지 않습니다.
+- `group-hover`는 부모 요소의 hover 상태를 기준으로 자식 요소 스타일을 바꿀 때 유용합니다.
+- `data-state`와 `aria-current`는 상태 기반 스타일과 접근성 의미를 함께 표현할 때 사용할 수 있습니다.
+- 테이블 제목은 `truncate`로 한 줄 말줄임 처리하고, 모바일 카드 제목은 `line-clamp-2`로 두 줄까지 보여주는 식으로 화면 성격에 따라 넘침 전략을 다르게 잡을 수 있습니다.
+- `min-w-0`은 flex/grid 안에서 텍스트가 줄어들지 않아 `truncate`가 동작하지 않을 때 확인해야 하는 실무 포인트입니다.
+- arbitrary value는 `active:scale-[0.98]`처럼 일회성 보정에 적합하고, 반복되는 디자인 값은 `@theme` 토큰이나 공통 컴포넌트로 승격하는 편이 좋습니다.
+- `@apply`는 React 컴포넌트 기반 UI의 주력 방식이라기보다, 마크다운/외부 HTML/레거시 구조처럼 JSX로 직접 제어하기 어려운 경우에 제한적으로 검토합니다.
+- `cn`은 props 기반 class 조합, 외부 `className` 병합, Tailwind class 충돌 정리에 유용합니다.
+- cva는 현재 프로젝트에 바로 적용하지 않아도 되지만, variant 조합이 많아지는 컴포넌트나 shadcn/ui 코드를 읽을 때 구조를 이해해두면 좋습니다.
+- Radix는 접근성 있는 동작 뼈대이고, shadcn/ui는 Radix 기반 컴포넌트에 Tailwind 스타일과 `cn`/cva 패턴을 입혀 프로젝트 코드로 가져오는 도구입니다.
+
+## 학습 종료 기준
+
+이번 스터디에서는 Tailwind를 단순 class 문법이 아니라, 토큰, 상태, 반응형, 다크모드, 접근성 상태, 텍스트 넘침, class 조합 유틸, UI 라이브러리 연동 관점에서 확인했습니다.
+
+이후 추가 학습은 Tailwind 자체보다 React 공통 컴포넌트 설계, shadcn/Radix 활용, form 상태 관리, 라우팅/API 연동 같은 별도 주제로 분리해서 진행합니다.
 
 ## 직접 실습 원칙
 

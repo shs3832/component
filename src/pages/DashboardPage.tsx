@@ -8,6 +8,22 @@ import { inquiries } from "../data/inquiries";
 import InquiryFilters from "../components/table/InquiryFilters";
 import { useState } from "react";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { cn } from "@/utils/cn";
+
+const labelClass = "text-sm font-medium text-zinc-900 dark:text-zinc-100";
+
+const controlClass =
+  "rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
+
 export default function DashboardPage() {
   const [searchText, setSearchText] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -121,9 +137,69 @@ export default function DashboardPage() {
           className="fixed bottom-0 left-0 right-0 border-t border-zinc-200 bg-white p-4 
           dark:border-zinc-800 dark:bg-zinc-900 md:hidden"
         >
-          <Button variant="primary" size="md" className="w-full">
-            새 문의 등록
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="primary" size="md" className="w-full">
+                새 문의 등록
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>새 문의 등록</DialogTitle>
+                <DialogDescription>고객 문의를 등록하기 위한 영역입니다.</DialogDescription>
+              </DialogHeader>
+              <form className="space-y-4">
+                <div className="grid gap-2">
+                  <label className={labelClass} htmlFor="customer">
+                    고객명
+                  </label>
+                  <input id="customer" className={cn("h-10 px-3", controlClass)} placeholder="고객명을 입력하세요" />
+                </div>
+                <div className="grid gap-2">
+                  <label className={labelClass} htmlFor="title">
+                    문의 제목
+                  </label>
+                  <input id="title" className={cn("h-10 px-3", controlClass)} placeholder="문의 제목을 입력하세요" />
+                </div>
+                <div className="grid gap-2">
+                  <label className={labelClass} htmlFor="category">
+                    카테고리
+                  </label>
+                  <select id="category" className={cn("h-10 px-3", controlClass)}>
+                    <option>배송</option>
+                    <option>결제</option>
+                    <option>계정</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+
+                <div className="grid gap-2">
+                  <label className={labelClass} htmlFor="message">
+                    문의 내용
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className={cn("resize-none px-3 py-2", controlClass)}
+                    placeholder="문의 내용을 입력하세요"
+                  />
+                </div>
+
+                <div className="flex justify-end gap-2 pt-2">
+                  <DialogClose asChild>
+                    <Button variant="secondary" type="button">
+                      취소
+                    </Button>
+                  </DialogClose>
+
+                  <Button variant="primary" type="submit">
+                    등록
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
     </div>
